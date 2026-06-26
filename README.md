@@ -17,10 +17,10 @@ By running locally via Ollama, Operatium ensures that your proprietary business 
 
 Operatium is designed to be robust and flexible, with fallback mechanisms built into the core agent graph.
 
-### 1. Main LLM Engine: Local Qwen 3.5
-- **Model:** qwen3.5 (via Ollama)
+### 1. Main LLM Engine: Local Qwen 2.5 (1.5B)
+- **Model:** qwen2.5:1.5b (via Ollama)
 - **Role:** Primary inference engine for all executives. 
-- **Why Qwen 3.5:** Highly capable at complex reasoning, instruction following, and maintaining specific persona constraints while being optimized for local hardware inference.
+- **Why Qwen 2.5 (1.5B):** Highly capable at complex reasoning and maintaining specific persona constraints, while being incredibly small (~1GB) to guarantee blazing fast real-time generation on standard laptop CPUs.
 
 ### 2. Fallback Engine: OpenRouter
 - **Model:** Configurable (defaults to huggingfaceh4/zephyr-7b-beta or gpt-oss-120b:free)
@@ -78,9 +78,9 @@ Ensure the following dependencies are installed on your machine:
 ### Step 2: Set up Ollama (Local AI)
 Once Ollama is installed on your system, open your terminal and pull the primary model:
 ```bash
-ollama pull qwen3.5
+ollama pull qwen2.5:1.5b
 ```
-*Note: This download requires approximately 4.5GB - 6.6GB depending on the underlying quantization.*
+*Note: This download requires approximately 1.1GB of storage.*
 
 ### Step 3: Set up the Supabase Database
 Operatium relies on Supabase for data persistence and pgvector for RAG memory.
