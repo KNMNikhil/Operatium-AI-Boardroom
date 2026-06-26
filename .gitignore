@@ -55,3 +55,5 @@ yarn-error.log*
 rag_training_data/
 evals/node_modules/
 backend/scratch/
+backend/test_*.py
+backend/tests/
