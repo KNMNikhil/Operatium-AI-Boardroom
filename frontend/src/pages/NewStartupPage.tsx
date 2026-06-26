@@ -75,6 +75,7 @@ export function NewStartupPage() {
   const [isInvestorLens, setIsInvestorLens] = useState(false);
   const [includeRedTeam, setIncludeRedTeam] = useState(false);
   const [capital, setCapital] = useState('');
+  const [stage, setStage] = useState('Idea Stage');
   const [selectedExecs, setSelectedExecs] = useState<string[]>(ALL_EXECUTIVES.map(e => e.id));
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -151,7 +152,7 @@ export function NewStartupPage() {
 
       const startup = await api.createStartup({
         name,
-        description: `${description}\n\n[CAPITAL: ${capital || 'Unknown'}]`,
+        description: `${description}\n\n[CAPITAL: ${capital || 'Unknown'}]\n[STAGE: ${stage}]`,
         industry: combinedIndustry,
         executives: execs,
       });
@@ -247,11 +248,11 @@ export function NewStartupPage() {
 
         <div style={{ marginBottom: 20 }}>
           <label style={{ fontSize: 18, fontWeight: 700, display: 'block', marginBottom: 4 }}>Industry (Select up to 3)</label>
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'nowrap' }}>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             <select
               value={industryPrimary} onChange={e => { setIndustryPrimary(e.target.value); setIndustryManuallySet(true); }}
               style={{
-                flex: '1', border: '2px solid #000', borderRadius: 8, padding: '8px 10px',
+                flex: '1', minWidth: '120px', border: '2px solid #000', borderRadius: 8, padding: '8px 10px',
                 fontSize: 16, fontFamily: "'Caveat', cursive", background: 'transparent',
                 outline: 'none', color: '#000', cursor: 'pointer', appearance: 'none'
               }}
@@ -263,7 +264,7 @@ export function NewStartupPage() {
             <select
               value={industrySecondary} onChange={e => { setIndustrySecondary(e.target.value); setIndustryManuallySet(true); }}
               style={{
-                flex: '1', border: '2px solid #000', borderRadius: 8, padding: '8px 10px',
+                flex: '1', minWidth: '120px', border: '2px solid #000', borderRadius: 8, padding: '8px 10px',
                 fontSize: 16, fontFamily: "'Caveat', cursive", background: 'transparent',
                 outline: 'none', color: '#000', cursor: 'pointer', appearance: 'none'
               }}
@@ -275,7 +276,7 @@ export function NewStartupPage() {
             <select
               value={industryThird} onChange={e => { setIndustryThird(e.target.value); setIndustryManuallySet(true); }}
               style={{
-                flex: '1', border: '2px solid #000', borderRadius: 8, padding: '8px 10px',
+                flex: '1', minWidth: '120px', border: '2px solid #000', borderRadius: 8, padding: '8px 10px',
                 fontSize: 16, fontFamily: "'Caveat', cursive", background: 'transparent',
                 outline: 'none', color: '#000', cursor: 'pointer', appearance: 'none'
               }}
@@ -286,12 +287,36 @@ export function NewStartupPage() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
-          <div style={{ flex: 1 }}>
-            <label style={{ fontSize: 18, fontWeight: 700, display: 'block', marginBottom: 4 }}>Initial Capital / Runway</label>
+        <div style={{ display: 'flex', gap: 16, marginBottom: 20, flexWrap: 'wrap' }}>
+          <div style={{ flex: '1 1 200px' }}>
+            <label style={{ fontSize: 18, fontWeight: 700, display: 'flex', alignItems: 'center', marginBottom: 4 }}>
+              Startup Stage
+              <TooltipIcon text="The current maturity level of your company. This helps executives tailor their advice (e.g., focusing on product-market fit for Idea Stage vs. scaling operations for Series A)." />
+            </label>
+            <select
+              value={stage} onChange={e => setStage(e.target.value)}
+              style={{
+                width: '100%', border: '2px solid #000', borderRadius: 8, padding: '10px 14px',
+                fontSize: 16, fontFamily: "'Caveat', cursive", background: 'transparent',
+                outline: 'none', color: '#000', cursor: 'pointer', appearance: 'none'
+              }}
+            >
+              <option value="Idea Stage">Idea Stage</option>
+              <option value="Pre-Seed">Pre-Seed</option>
+              <option value="Seed">Seed</option>
+              <option value="Series A">Series A+</option>
+              <option value="Growth / Expansion">Growth / Expansion</option>
+              <option value="Established / Profitable">Established / Profitable</option>
+            </select>
+          </div>
+          <div style={{ flex: '1 1 200px' }}>
+            <label style={{ fontSize: 18, fontWeight: 700, display: 'flex', alignItems: 'center', marginBottom: 4 }}>
+              Initial Capital / Runway
+              <TooltipIcon text="How much funding you have for this startup. Feel free to mention if you are backed by multiple sources (e.g., Zoho for Startups, Amazon for Startups, or Y Combinator). The AI will adapt its advice based on your backing!" />
+            </label>
             <input
               value={capital} onChange={e => setCapital(e.target.value)}
-              placeholder="e.g. $50k or 6 months"
+              placeholder="e.g. $2M Seed funding, backed by Y Combinator"
               style={{
                 width: '100%', border: '2px solid #000', borderRadius: 8, padding: '10px 14px',
                 fontSize: 16, fontFamily: "'Caveat', cursive", background: 'transparent',

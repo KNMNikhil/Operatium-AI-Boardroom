@@ -11,15 +11,49 @@ Operatium is a local-first, AI-driven business simulation framework. It leverage
 
 By running locally via Ollama, Operatium ensures that your proprietary business data remains completely private. It utilizes a highly capable Retrieval-Augmented Generation (RAG) system to ground the AI's logic in real-world startup frameworks and market research.
 
+## Data Privacy & Absolute Security
+
+Your data is completely safe. This platform is designed to run entirely locally on your own machine. All of your proprietary startup ideas, financial data, and market assumptions are processed locally using your own data and local APIs (like Ollama). 
+- Nothing is stored by us.
+- None of your entered data is made public.
+- Your ideas cannot be exploited or leaked.
+
+---
+
 ## Features Added in v2.0
-- **Shark Tank Mode**: Toggle this mode to abandon polite feedback. The executives become extremely hostile, skeptical venture capitalists aggressively hunting for flaws.
-- **The Pivot Protocol**: If your startup concept scores below a 40 on the validation scale, a "Pivot Idea" button will appear. The CEO will autonomously mutate your concept into a more viable, profitable adjacent market.
-- **Real-Time Competitor Web Scraping**: The Growth & Marketing executive actively scrapes DuckDuckGo during the meeting to discover and surface your real-world competitors, forcing you to defend your moat.
-- **Auto-Predict Industry**: The system utilizes intelligent keyword mapping to automatically predict your startup's industry as you type your pitch, saving you setup time.
-- **Live Board Indicators**: Active meeting modes (Shark Tank, Investor Lens, Red Team) are displayed dynamically via UI badges during the live session and printed on the final PDF report.
-- **PDF Export**: Download the comprehensive post-meeting AI-generated boardroom report directly as a stylized PDF for easy sharing with co-founders or investors.
-- **Live Session Resumption**: Accidentally refreshed the page during a meeting? No problem. The WebSockets will automatically resync the timeline so you don't lose your live view.
-- **One-Click Docker Setup**: We now provide `docker-compose.yml` and automated shell scripts (`setup.bat` / `setup.sh`) to instantly spin up the entire stack without manual configuration.
+
+**Shark Tank Mode**
+Toggle this mode to abandon polite feedback. The executives become extremely hostile, skeptical venture capitalists aggressively hunting for flaws.
+
+**Investor Lens**
+Evaluates your startup strictly on ROI, market size, and exit strategy, demanding proof of massive revenue growth.
+
+**Red Team (Devil's Advocate)**
+Adds an 8th executive who actively hunts for single points of failure and catastrophic risks, preventing the board from agreeing in an echo-chamber.
+
+**Auto-Predict Industry**
+The system utilizes intelligent keyword mapping to automatically predict your startup's industry as you type your pitch, saving you setup time.
+
+**Startup Stage & Funding Context**
+Provide your startup's maturity stage (Idea, Seed, Series A, etc.) and funding backing (e.g., Y Combinator, Microsoft). The AI will dynamically alter its advice based on your financial reality.
+
+**Live Board Indicators**
+Active meeting modes are displayed dynamically via UI badges during the live session and printed on the final PDF report.
+
+**The Pivot Protocol**
+If your startup concept scores below a 40 on the validation scale, a "Pivot Idea" button will appear. The CEO will autonomously mutate your concept into a more viable, profitable adjacent market.
+
+**Real-Time Competitor Web Scraping**
+The Growth & Marketing executive actively scrapes DuckDuckGo during the meeting to discover and surface your real-world competitors, forcing you to defend your moat.
+
+**PDF Export**
+Download the comprehensive post-meeting AI-generated boardroom report directly as a stylized PDF for easy sharing with co-founders or investors.
+
+**Live Session Resumption**
+Accidentally refreshed the page during a meeting? No problem. The WebSockets will automatically resync the timeline so you don't lose your live view.
+
+**One-Click Docker Setup**
+We now provide `docker-compose.yml` and automated shell scripts (`setup.bat` / `setup.sh`) to instantly spin up the entire stack without manual configuration.
 
 ---
 
