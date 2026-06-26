@@ -51,7 +51,7 @@ class BaseExecutive(ABC):
 
     @property
     def llm(self):
-        """Ollama (Qwen 3.5) → OpenRouter gpt-oss-120b:free fallback chain."""
+        """Ollama (Qwen) → OpenRouter gpt-oss-120b:free fallback chain."""
         if self._llm is None:
             from langchain_ollama import ChatOllama
             from langchain_openai import ChatOpenAI
@@ -60,6 +60,7 @@ class BaseExecutive(ABC):
             primary = ChatOllama(
                 model=self.model_name,
                 temperature=0.6,
+                num_ctx=8192,
             )
             
             if OPENROUTER_API_KEY:
