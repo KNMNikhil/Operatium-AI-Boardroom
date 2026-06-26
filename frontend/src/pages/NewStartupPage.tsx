@@ -6,19 +6,21 @@ import { useStartupStore } from '../store/useStartupStore';
 import { useMeetingStore } from '../store/useMeetingStore';
 
 const ALL_EXECUTIVES = [
-  { id: 'CEO', icon: '👑', desc: 'Vision & Strategy' },
-  { id: 'CTO', icon: '⚙️', desc: 'Tech & Architecture' },
-  { id: 'Product Manager', icon: '🗺️', desc: 'Roadmap & MVP' },
-  { id: 'Product Designer', icon: '🎨', desc: 'UX & Flows' },
-  { id: 'Growth & Marketing', icon: '📈', desc: 'Launch & Growth' },
-  { id: 'Finance & Operations', icon: '💰', desc: 'Costs & Revenue' },
-  { id: 'Investor & Risk Advisor', icon: '🎯', desc: 'Risk & Investment' },
+  { id: 'CEO', desc: 'Vision & Strategy' },
+  { id: 'CTO', desc: 'Tech & Architecture' },
+  { id: 'Product Manager', desc: 'Roadmap & MVP' },
+  { id: 'Product Designer', desc: 'UX & Flows' },
+  { id: 'Growth & Marketing', desc: 'Launch & Growth' },
+  { id: 'Finance & Operations', desc: 'Costs & Revenue' },
+  { id: 'Investor & Risk Advisor', desc: 'Risk & Investment' },
 ];
 
 const INDUSTRIES = [
   'SaaS', 'Marketplace', 'Consumer App', 'FinTech', 'HealthTech',
-  'EdTech', 'AI / ML', 'E-commerce', 'Social', 'Developer Tools',
-  'Climate Tech', 'Enterprise', 'Gaming', 'Media', 'Other',
+  'EdTech', 'AI / ML', 'E-commerce', 'Social Network', 'Developer Tools',
+  'Climate Tech', 'Enterprise Software', 'Gaming', 'Media & Entertainment',
+  'BioTech', 'Hardware', 'Robotics', 'SpaceTech', 'Web3 / Crypto', 'Cybersecurity',
+  'Logistics', 'PropTech', 'Other',
 ];
 
 type Step = 1 | 2 | 3;
@@ -197,7 +199,7 @@ export function NewStartupPage() {
                   }}
                 >
                   <option value="" disabled>Primary (Required)</option>
-                  {INDUSTRIES.map(ind => <option key={ind} value={ind}>{ind}</option>)}
+                  {INDUSTRIES.map(ind => <option key={ind} value={ind} disabled={ind === industrySecondary || ind === industryThird}>{ind}</option>)}
                 </select>
 
                 <select
@@ -209,7 +211,7 @@ export function NewStartupPage() {
                   }}
                 >
                   <option value="" disabled>Secondary (Required)</option>
-                  {INDUSTRIES.map(ind => <option key={ind} value={ind}>{ind}</option>)}
+                  {INDUSTRIES.map(ind => <option key={ind} value={ind} disabled={ind === industryPrimary || ind === industryThird}>{ind}</option>)}
                 </select>
 
                 <select
@@ -221,7 +223,7 @@ export function NewStartupPage() {
                   }}
                 >
                   <option value="">Third (Optional)</option>
-                  {INDUSTRIES.map(ind => <option key={ind} value={ind}>{ind}</option>)}
+                  {INDUSTRIES.map(ind => <option key={ind} value={ind} disabled={ind === industryPrimary || ind === industrySecondary}>{ind}</option>)}
                 </select>
               </div>
             </div>
@@ -253,8 +255,8 @@ export function NewStartupPage() {
             <p style={{ fontSize: 20, color: 'rgba(0,0,0,0.6)', marginBottom: 32 }}>Who should attend the boardroom?</p>
 
             {[
-              { id: 'full_board', label: 'Full Executive Board', desc: 'All 7 executives analyze your idea — the complete boardroom experience.', icon: '🏛️' },
-              { id: 'custom', label: 'Custom Board', desc: 'Select which executives to include. Great for focused reviews.', icon: '⚡' },
+              { id: 'full_board', label: 'Full Executive Board', desc: 'All 7 executives analyze your idea — the complete boardroom experience.' },
+              { id: 'custom', label: 'Custom Board', desc: 'Select which executives to include. Great for focused reviews.' },
             ].map(opt => (
               <button key={opt.id} onClick={() => setMeetingType(opt.id as any)} style={{
                 width: '100%', padding: '20px 24px', marginBottom: 16,
@@ -265,7 +267,7 @@ export function NewStartupPage() {
                 boxShadow: meetingType === opt.id ? '4px 4px 0 rgba(0,0,0,0.3)' : '2px 2px 0 rgba(0,0,0,0.1)',
                 transition: 'all 0.2s', fontFamily: "'Caveat', cursive",
               }}>
-                <div style={{ fontSize: 24, marginBottom: 4 }}>{opt.icon} <strong style={{ fontSize: 22 }}>{opt.label}</strong></div>
+                <div style={{ fontSize: 24, marginBottom: 4 }}><strong style={{ fontSize: 22 }}>{opt.label}</strong></div>
                 <div style={{ fontSize: 18, opacity: 0.8 }}>{opt.desc}</div>
               </button>
             ))}
@@ -313,7 +315,7 @@ export function NewStartupPage() {
                     boxShadow: selected ? '3px 3px 0 rgba(0,0,0,0.3)' : '2px 2px 0 rgba(0,0,0,0.1)',
                     transition: 'all 0.2s',
                   }}>
-                    <div style={{ fontSize: 22 }}>{exec.icon} <strong style={{ fontSize: 18 }}>{exec.id}</strong></div>
+                    <div style={{ fontSize: 22 }}><strong style={{ fontSize: 18 }}>{exec.id}</strong></div>
                     <div style={{ fontSize: 16, opacity: 0.75 }}>{exec.desc}</div>
                   </button>
                 );
@@ -338,7 +340,7 @@ export function NewStartupPage() {
                 fontFamily: "'Caveat', cursive", cursor: isLoading ? 'wait' : 'pointer',
                 boxShadow: '4px 4px 0 rgba(0,0,0,0.3)', opacity: isLoading ? 0.7 : 1,
               }}>
-                {isLoading ? 'Calling the board...' : '🚀 Launch Meeting'}
+                {isLoading ? 'Calling the board...' : 'Launch Meeting'}
               </button>
             </div>
           </motion.div>
