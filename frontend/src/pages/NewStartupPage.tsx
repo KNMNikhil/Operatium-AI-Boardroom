@@ -168,7 +168,10 @@ export function NewStartupPage() {
             </div>
 
             <div style={{ marginBottom: 20 }}>
-              <label style={{ fontSize: 20, fontWeight: 700, display: 'block', marginBottom: 8 }}>Description</label>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
+                <label style={{ fontSize: 20, fontWeight: 700, display: 'block' }}>Description</label>
+                <span style={{ fontSize: 14, color: 'rgba(0,0,0,0.5)' }}>Max 10,000 chars (~1,500 words)</span>
+              </div>
               <textarea
                 value={description} onChange={e => setDescription(e.target.value)}
                 placeholder="e.g. An AI-powered travel planner that builds personalized itineraries based on your budget, preferences, and travel style."
