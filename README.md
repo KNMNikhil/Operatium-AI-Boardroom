@@ -12,12 +12,12 @@ Operatium is a local-first, AI-driven business simulation framework. It leverage
 By running locally via Ollama, Operatium ensures that your proprietary business data remains completely private. It utilizes a highly capable Retrieval-Augmented Generation (RAG) system to ground the AI's logic in real-world startup frameworks and market research.
 
 ## Features Added in v2.0
-- **🦈 Shark Tank Mode**: Toggle this mode to abandon polite feedback. The executives become extremely hostile, skeptical venture capitalists aggressively hunting for flaws.
-- **🔄 The Pivot Protocol**: If your startup concept scores below a 40 on the validation scale, a "Pivot Idea" button will appear. The CEO will autonomously mutate your concept into a more viable, profitable adjacent market.
-- **🌐 Real-Time Competitor Web Scraping**: The Growth & Marketing executive actively scrapes DuckDuckGo during the meeting to discover and surface your real-world competitors, forcing you to defend your moat.
-- **📄 PDF Export**: Download the comprehensive post-meeting AI-generated boardroom report directly as a stylized PDF for easy sharing with co-founders or investors.
-- **🔁 Live Session Resumption**: Accidentally refreshed the page during a meeting? No problem. The WebSockets will automatically resync the timeline so you don't lose your live view.
-- **🐳 One-Click Docker Setup**: We now provide `docker-compose.yml` and automated shell scripts (`setup.bat` / `setup.sh`) to instantly spin up the entire stack without manual configuration.
+- **Shark Tank Mode**: Toggle this mode to abandon polite feedback. The executives become extremely hostile, skeptical venture capitalists aggressively hunting for flaws.
+- **The Pivot Protocol**: If your startup concept scores below a 40 on the validation scale, a "Pivot Idea" button will appear. The CEO will autonomously mutate your concept into a more viable, profitable adjacent market.
+- **Real-Time Competitor Web Scraping**: The Growth & Marketing executive actively scrapes DuckDuckGo during the meeting to discover and surface your real-world competitors, forcing you to defend your moat.
+- **PDF Export**: Download the comprehensive post-meeting AI-generated boardroom report directly as a stylized PDF for easy sharing with co-founders or investors.
+- **Live Session Resumption**: Accidentally refreshed the page during a meeting? No problem. The WebSockets will automatically resync the timeline so you don't lose your live view.
+- **One-Click Docker Setup**: We now provide `docker-compose.yml` and automated shell scripts (`setup.bat` / `setup.sh`) to instantly spin up the entire stack without manual configuration.
 
 ---
 
