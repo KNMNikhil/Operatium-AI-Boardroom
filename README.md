@@ -5,6 +5,8 @@
 ![React](https://img.shields.io/badge/React-18-blue.svg)
 ![Ollama](https://img.shields.io/badge/Ollama-Local_Inference-orange.svg)
 
+![Operatium Boardroom](screenshot.png)
+
 Operatium is a local-first, AI-driven business simulation framework. It leverages multiple autonomous AI agents—acting as a CEO, CTO, Product Manager, Growth Lead, and Risk Advisor—to debate, analyze, and validate complex startup ideas and business strategies in real-time.
 
 By running locally via Ollama, Operatium ensures that your proprietary business data remains completely private. It utilizes a highly capable Retrieval-Augmented Generation (RAG) system to ground the AI's logic in real-world startup frameworks and market research.
