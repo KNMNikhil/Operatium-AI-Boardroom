@@ -41,13 +41,13 @@ Operatium is designed to be robust and flexible, with fallback mechanisms built 
 
 Operatium simulates a full C-suite. Each autonomous agent is strictly prompted to focus purely on their domain expertise and relentlessly debate the startup's flaws before reaching a consensus.
 
-- 👑 **CEO (Chief Executive Officer):** Evaluates the overall vision, market opportunity, and acts as the final decision-maker to synthesize the ultimate strategy.
-- ⚙️ **CTO (Chief Technology Officer):** Scrutinizes technical feasibility, architecture choices, scalability, and engineering bottlenecks.
-- 🗺️ **Product Manager:** Scopes the Minimum Viable Product (MVP), defines user personas, and builds the product roadmap.
-- 🎨 **Product Designer:** Focuses on User Experience (UX), user flows, and interface friction points.
-- 📈 **Growth & Marketing:** Formulates the Go-To-Market (GTM) strategy, customer acquisition channels, and viral loops.
-- 💰 **Finance & Operations:** Analyzes revenue models, unit economics, runway, and pricing strategy.
-- 🎯 **Investor & Risk Advisor:** Plays devil's advocate to expose market risks, regulatory hurdles, and scrutinizes investor readiness.
+- **CEO (Chief Executive Officer):** Evaluates the overall vision, market opportunity, and acts as the final decision-maker to synthesize the ultimate strategy.
+- **CTO (Chief Technology Officer):** Scrutinizes technical feasibility, architecture choices, scalability, and engineering bottlenecks.
+- **Product Manager:** Scopes the Minimum Viable Product (MVP), defines user personas, and builds the product roadmap.
+- **Product Designer:** Focuses on User Experience (UX), user flows, and interface friction points.
+- **Growth & Marketing:** Formulates the Go-To-Market (GTM) strategy, customer acquisition channels, and viral loops.
+- **Finance & Operations:** Analyzes revenue models, unit economics, runway, and pricing strategy.
+- **Investor & Risk Advisor:** Plays devil's advocate to expose market risks, regulatory hurdles, and scrutinizes investor readiness.
 
 ---
 
