@@ -25,6 +25,11 @@ function BoardroomHome() {
   const description = searchParams.get('description');
   const industry = searchParams.get('industry');
   const execsParam = searchParams.get('execs');
+  const meetingType = searchParams.get('meeting_type') || 'full_board';
+
+  const isSharkTank = meetingType.includes('shark_tank');
+  const isInvestorLens = meetingType.includes('investor_lens');
+  const isRedTeam = execsParam?.includes('Red Team') || false;
 
   const {
     currentStage, isMeetingActive,
@@ -207,6 +212,13 @@ function BoardroomHome() {
       {/* UI Overlay */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 10, pointerEvents: 'none' }}>
 
+        {/* Post Meeting Workflow Overlay */}
+      {currentStage === 'complete' && showWorkflow && (
+        <div style={{ position: 'absolute', inset: 0, zIndex: 99999, background: 'rgba(0,0,0,0.8)', display: 'flex', justifyContent: 'center', padding: '40px' }}>
+          <PostMeetingWorkflow meetingId={meetingId || ''} startupName={startupName || ''} onClose={() => setShowWorkflow(false)} isSharkTank={isSharkTank} isInvestorLens={isInvestorLens} isRedTeam={isRedTeam} />
+        </div>
+      )}
+
         {/* Header */}
         {!(currentStage === 'complete' && showWorkflow) && (
           <header style={{
@@ -250,6 +262,13 @@ function BoardroomHome() {
               <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', pointerEvents: 'auto', textAlign: 'center', background: 'rgba(255, 244, 233, 0.9)', padding: '8px 24px', borderRadius: 12, border: '2px solid #000', boxShadow: '4px 4px 0 rgba(0,0,0,1)' }}>
                 <div style={{ fontSize: 24, fontWeight: 800, color: '#000', letterSpacing: '0.05em' }}>{startupName}</div>
                 <div style={{ fontSize: 14, fontWeight: 600, color: 'rgba(0,0,0,0.5)', textTransform: 'uppercase' }}>Active Board Session</div>
+                {(isSharkTank || isInvestorLens || isRedTeam) && (
+                  <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '6px' }}>
+                    {isSharkTank && <span style={{ fontSize: '10px', background: '#ef4444', color: 'white', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>SHARK TANK</span>}
+                    {isInvestorLens && <span style={{ fontSize: '10px', background: '#eab308', color: 'black', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>INVESTOR LENS</span>}
+                    {isRedTeam && <span style={{ fontSize: '10px', background: '#7f1d1d', color: 'white', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>RED TEAM</span>}
+                  </div>
+                )}
               </div>
             )}
 
@@ -347,7 +366,7 @@ function BoardroomHome() {
         {currentStage === 'complete' && showWorkflow ? (
           <PostMeetingWorkflow onContinueDiscussion={() => {
             setShowWorkflow(false);
-          }} />
+          }} isSharkTank={isSharkTank} isInvestorLens={isInvestorLens} isRedTeam={isRedTeam} />
         ) : (
           meetingId ? <CommandInput 
             onSubmit={handleFollowupSubmit} 

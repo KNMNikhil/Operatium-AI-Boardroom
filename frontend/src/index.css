@@ -27,6 +27,7 @@
   * {
     box-sizing: border-box;
     font-family: 'AlmarenaDisplayLight', sans-serif !important;
+    letter-spacing: 0.05em;
   }
   body {
     margin: 0;

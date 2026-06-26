@@ -23,7 +23,42 @@ const INDUSTRIES = [
   'Logistics', 'PropTech', 'Other',
 ];
 
+const INDUSTRY_KEYWORDS: Record<string, string[]> = {
+  'SaaS': ['saas', 'software', 'subscription', 'cloud', 'b2b', 'platform', 'b2b software', 'service'],
+  'Marketplace': ['marketplace', 'peer-to-peer', 'two-sided', 'connect', 'connects', 'buyers', 'sellers', 'exchange', 'hub'],
+  'Consumer App': ['consumer', 'b2c', 'mobile', 'app', 'application', 'personal', 'tracker', 'habit', 'lifestyle'],
+  'FinTech': ['fintech', 'finance', 'banking', 'payment', 'investing', 'trading', 'loan', 'credit', 'money', 'wallet', 'crypto', 'financial'],
+  'HealthTech': ['health', 'medical', 'fitness', 'wellness', 'patient', 'doctor', 'clinic', 'hospital', 'telehealth', 'care', 'therapy'],
+  'EdTech': ['education', 'learning', 'students', 'school', 'tutor', 'course', 'university', 'teach', 'teacher', 'academy'],
+  'AI / ML': ['ai', 'machine learning', 'artificial intelligence', 'llm', 'generative', 'model', 'neural', 'nlp', 'gpt', 'bot', 'intelligent', 'automate', 'smart'],
+  'E-commerce': ['e-commerce', 'ecommerce', 'retail', 'store', 'shop', 'cart', 'checkout', 'dtc', 'd2c', 'buy', 'sell', 'goods', 'products'],
+  'Social Network': ['social', 'community', 'network', 'friends', 'creators', 'share', 'chat', 'messaging', 'dating'],
+  'Developer Tools': ['developer', 'devtool', 'api', 'sdk', 'ide', 'git', 'coding', 'programmer', 'code', 'devs', 'engineers'],
+  'Climate Tech': ['climate', 'sustainability', 'carbon', 'green', 'renewable', 'energy', 'environment', 'eco'],
+  'Enterprise Software': ['enterprise', 'corporate', 'large business', 'erp', 'crm', 'hr', 'management', 'b2b enterprise'],
+  'Gaming': ['game', 'gaming', 'esports', 'players', 'console', 'play', 'gamers', 'multiplayer'],
+  'Media & Entertainment': ['media', 'entertainment', 'content', 'video', 'music', 'streaming', 'podcast', 'creator', 'movies'],
+  'BioTech': ['biotech', 'biology', 'genetics', 'pharma', 'drug', 'therapeutics', 'clinical'],
+  'Hardware': ['hardware', 'device', 'electronics', 'iot', 'wearable', 'manufacturing', 'physical', 'equipment'],
+  'Robotics': ['robot', 'robotics', 'automation', 'drone', 'autonomous', 'machines'],
+  'SpaceTech': ['space', 'satellite', 'rocket', 'aerospace', 'orbit'],
+  'Web3 / Crypto': ['web3', 'crypto', 'blockchain', 'nft', 'defi', 'token', 'smart contract', 'decentralized', 'web 3'],
+  'Cybersecurity': ['security', 'cybersecurity', 'hacker', 'threat', 'firewall', 'auth', 'encryption', 'privacy', 'protect', 'data protection'],
+  'Logistics': ['logistics', 'supply chain', 'delivery', 'shipping', 'freight', 'warehouse', 'transport', 'cargo'],
+  'PropTech': ['real estate', 'proptech', 'property', 'housing', 'tenant', 'landlord', 'rent', 'lease'],
+};
+
 type Step = 1 | 2 | 3;
+
+const TooltipIcon = ({ text }: { text: string }) => (
+  <div className="group relative inline-flex items-center ml-2" onClick={e => e.stopPropagation()}>
+    <div className="w-5 h-5 rounded-full border-2 border-current flex items-center justify-center text-[12px] font-sans font-extrabold cursor-help opacity-70 group-hover:opacity-100">i</div>
+    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-80 p-4 bg-black text-white text-base font-sans rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 shadow-2xl leading-relaxed">
+      {text}
+      <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-black"></div>
+    </div>
+  </div>
+);
 
 export function NewStartupPage() {
   const navigate = useNavigate();
@@ -43,6 +78,39 @@ export function NewStartupPage() {
   const [selectedExecs, setSelectedExecs] = useState<string[]>(ALL_EXECUTIVES.map(e => e.id));
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [industryManuallySet, setIndustryManuallySet] = useState(false);
+
+  React.useEffect(() => {
+    if (industryManuallySet || !description.trim()) return;
+
+    const lowerDesc = description.toLowerCase();
+    const scores: { ind: string, score: number }[] = [];
+
+    for (const ind of INDUSTRIES) {
+      if (ind === 'Other') continue;
+      let score = 0;
+      const keywords = INDUSTRY_KEYWORDS[ind] || [];
+      for (const kw of keywords) {
+        // Use word boundaries so 'ai' doesn't match inside 'main'
+        const regex = new RegExp(`\\b${kw}\\b`, 'i');
+        if (regex.test(lowerDesc)) {
+          score += 1;
+        }
+      }
+      if (score > 0) scores.push({ ind, score });
+    }
+
+    scores.sort((a, b) => b.score - a.score);
+
+    if (scores.length > 0) setIndustryPrimary(scores[0].ind);
+    else setIndustryPrimary('');
+    
+    if (scores.length > 1) setIndustrySecondary(scores[1].ind);
+    else setIndustrySecondary('');
+    
+    if (scores.length > 2) setIndustryThird(scores[2].ind);
+    else setIndustryThird('');
+  }, [description, industryManuallySet]);
 
   const toggleExec = (id: string) => {
     setSelectedExecs(prev =>
@@ -97,7 +165,7 @@ export function NewStartupPage() {
         executives: execs,
       });
 
-      navigate(`/?meetingId=${meeting.id}&startup_id=${startup.id}&startup_name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&industry=${encodeURIComponent(combinedIndustry)}&execs=${encodeURIComponent(execs.join(','))}`);
+      navigate(`/?meetingId=${meeting.id}&startup_id=${startup.id}&startup_name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&industry=${encodeURIComponent(combinedIndustry)}&execs=${encodeURIComponent(execs.join(','))}&meeting_type=${encodeURIComponent(finalMeetingType)}`);
     } catch (err: any) {
       setError(err.message || 'Failed to create startup. Check if the backend is running.');
     } finally {
@@ -181,7 +249,7 @@ export function NewStartupPage() {
           <label style={{ fontSize: 18, fontWeight: 700, display: 'block', marginBottom: 4 }}>Industry (Select up to 3)</label>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'nowrap' }}>
             <select
-              value={industryPrimary} onChange={e => setIndustryPrimary(e.target.value)}
+              value={industryPrimary} onChange={e => { setIndustryPrimary(e.target.value); setIndustryManuallySet(true); }}
               style={{
                 flex: '1', border: '2px solid #000', borderRadius: 8, padding: '8px 10px',
                 fontSize: 16, fontFamily: "'Caveat', cursive", background: 'transparent',
@@ -193,7 +261,7 @@ export function NewStartupPage() {
             </select>
 
             <select
-              value={industrySecondary} onChange={e => setIndustrySecondary(e.target.value)}
+              value={industrySecondary} onChange={e => { setIndustrySecondary(e.target.value); setIndustryManuallySet(true); }}
               style={{
                 flex: '1', border: '2px solid #000', borderRadius: 8, padding: '8px 10px',
                 fontSize: 16, fontFamily: "'Caveat', cursive", background: 'transparent',
@@ -205,7 +273,7 @@ export function NewStartupPage() {
             </select>
 
             <select
-              value={industryThird} onChange={e => setIndustryThird(e.target.value)}
+              value={industryThird} onChange={e => { setIndustryThird(e.target.value); setIndustryManuallySet(true); }}
               style={{
                 flex: '1', border: '2px solid #000', borderRadius: 8, padding: '8px 10px',
                 fontSize: 16, fontFamily: "'Caveat', cursive", background: 'transparent',
@@ -242,7 +310,10 @@ export function NewStartupPage() {
               </span>
             </div>
             <div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: isSharkTank ? '#ef4444' : '#000' }}>🦈 Shark Tank</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: isSharkTank ? '#ef4444' : '#000', display: 'flex', alignItems: 'center' }}>
+                Shark Tank
+                <TooltipIcon text="Affects all executives. Abandons polite feedback. They become hostile, skeptical venture capitalists aggressively hunting for flaws and tearing apart weak assumptions." />
+              </div>
               <div style={{ fontSize: 12, color: 'rgba(0,0,0,0.6)' }}>Hostile board</div>
             </div>
           </label>
@@ -255,7 +326,10 @@ export function NewStartupPage() {
               </span>
             </div>
             <div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: isInvestorLens ? '#10b981' : '#000' }}>💰 Investor Lens</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: isInvestorLens ? '#10b981' : '#000', display: 'flex', alignItems: 'center' }}>
+                Investor Lens
+                <TooltipIcon text="Affects all executives. Evaluates strictly on ROI, market size, and exit strategy. They ignore 'nice-to-haves' and demand proof of massive revenue growth." />
+              </div>
               <div style={{ fontSize: 12, color: 'rgba(0,0,0,0.6)' }}>VC perspective</div>
             </div>
           </label>
@@ -268,7 +342,10 @@ export function NewStartupPage() {
               </span>
             </div>
             <div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: includeRedTeam ? '#8b5cf6' : '#000' }}>👹 Red Team</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: includeRedTeam ? '#8b5cf6' : '#000', display: 'flex', alignItems: 'center' }}>
+                Red Team
+                <TooltipIcon text="Adds an 8th executive (Devil's Advocate) who hunts for single points of failure, catastrophic risks, and prevents the board from agreeing in an echo-chamber." />
+              </div>
               <div style={{ fontSize: 12, color: 'rgba(0,0,0,0.6)' }}>Devil's Advocate</div>
             </div>
           </label>

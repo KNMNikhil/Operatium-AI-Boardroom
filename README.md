@@ -15,6 +15,8 @@ By running locally via Ollama, Operatium ensures that your proprietary business 
 - **Shark Tank Mode**: Toggle this mode to abandon polite feedback. The executives become extremely hostile, skeptical venture capitalists aggressively hunting for flaws.
 - **The Pivot Protocol**: If your startup concept scores below a 40 on the validation scale, a "Pivot Idea" button will appear. The CEO will autonomously mutate your concept into a more viable, profitable adjacent market.
 - **Real-Time Competitor Web Scraping**: The Growth & Marketing executive actively scrapes DuckDuckGo during the meeting to discover and surface your real-world competitors, forcing you to defend your moat.
+- **Auto-Predict Industry**: The system utilizes intelligent keyword mapping to automatically predict your startup's industry as you type your pitch, saving you setup time.
+- **Live Board Indicators**: Active meeting modes (Shark Tank, Investor Lens, Red Team) are displayed dynamically via UI badges during the live session and printed on the final PDF report.
 - **PDF Export**: Download the comprehensive post-meeting AI-generated boardroom report directly as a stylized PDF for easy sharing with co-founders or investors.
 - **Live Session Resumption**: Accidentally refreshed the page during a meeting? No problem. The WebSockets will automatically resync the timeline so you don't lose your live view.
 - **One-Click Docker Setup**: We now provide `docker-compose.yml` and automated shell scripts (`setup.bat` / `setup.sh`) to instantly spin up the entire stack without manual configuration.

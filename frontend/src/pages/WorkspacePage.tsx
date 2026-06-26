@@ -76,7 +76,7 @@ export function WorkspacePage() {
       if (fullStartup.meetings && fullStartup.meetings.length > 0) {
         const latestMeeting = fullStartup.meetings[0];
         const execs = fullStartup.executives?.join(',') || '';
-        navigate(`/?meetingId=${latestMeeting.id}&startup_id=${fullStartup.id}&execs=${execs}&startup_name=${encodeURIComponent(fullStartup.name)}&description=${encodeURIComponent(fullStartup.description)}`);
+        navigate(`/?meetingId=${latestMeeting.id}&startup_id=${fullStartup.id}&execs=${execs}&startup_name=${encodeURIComponent(fullStartup.name)}&description=${encodeURIComponent(fullStartup.description)}&meeting_type=${encodeURIComponent(latestMeeting.meeting_type)}`);
       } else {
         alert("This startup has no meetings yet.");
       }
@@ -109,7 +109,7 @@ export function WorkspacePage() {
       });
       
       const execs = fullStartup.executives?.join(',') || '';
-      navigate(`/?meetingId=${meeting.id}&startup_id=${fullStartup.id}&execs=${execs}&startup_name=${encodeURIComponent(fullStartup.name)}&description=${encodeURIComponent(newDesc)}`);
+      navigate(`/?meetingId=${meeting.id}&startup_id=${fullStartup.id}&execs=${execs}&startup_name=${encodeURIComponent(fullStartup.name)}&description=${encodeURIComponent(newDesc)}&meeting_type=full_board`);
     } catch (err: any) {
       alert(`Failed to create new session: ${err.message}`);
     } finally {

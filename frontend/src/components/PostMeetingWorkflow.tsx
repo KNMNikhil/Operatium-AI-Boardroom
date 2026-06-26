@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useMeetingStore } from '../store/useMeetingStore';
 
-export function PostMeetingWorkflow({ onContinueDiscussion }: { onContinueDiscussion: () => void }) {
+export function PostMeetingWorkflow({ onContinueDiscussion, isSharkTank, isInvestorLens, isRedTeam }: { onContinueDiscussion: () => void; isSharkTank?: boolean; isInvestorLens?: boolean; isRedTeam?: boolean }) {
   const navigate = useNavigate();
   const { ideaTitle, meetingDecisions, report, resetMeeting } = useMeetingStore();
 
@@ -149,6 +149,14 @@ ${Object.entries(analysis).map(([role, text]) => `### ${role}\n${stripMd(text as
           <div className="text-xl px-4 py-1 border-2 border-black rounded-full inline-block bg-black text-[#FFF4E9] shadow-[3px_3px_0_rgba(0,0,0,0.3)]">
             Status: Ready For Next Steps
           </div>
+          
+          {(isSharkTank || isInvestorLens || isRedTeam) && (
+            <div className="flex justify-center gap-2 mt-2">
+              {isSharkTank && <span className="bg-red-500 text-white px-2 py-1 rounded text-sm font-bold border border-black">SHARK TANK</span>}
+              {isInvestorLens && <span className="bg-yellow-500 text-black px-2 py-1 rounded text-sm font-bold border border-black">INVESTOR LENS</span>}
+              {isRedTeam && <span className="bg-red-900 text-white px-2 py-1 rounded text-sm font-bold border border-black">RED TEAM</span>}
+            </div>
+          )}
 
           {elevatorPitch && (
             <div className="mt-8 max-w-3xl mx-auto border-2 border-black bg-[#FFEBDB] p-6 rounded-xl shadow-[4px_4px_0_rgba(0,0,0,1)] transform rotate-[0.5deg]">
