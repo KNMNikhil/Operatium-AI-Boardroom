@@ -8,7 +8,7 @@ import uuid
 
 class StartupCreate(BaseModel):
     name: str = Field(..., min_length=2, max_length=100, description="Name of the startup")
-    description: str = Field(..., min_length=10, max_length=2000, description="Detailed description")
+    description: str = Field(..., min_length=10, max_length=10000, description="Detailed description")
     industry: str = Field(..., min_length=2, max_length=50)
     executives: List[str] = Field(
         default=["CEO", "CTO", "Product Manager", "Product Designer", "Growth & Marketing", "Finance & Operations", "Investor & Risk Advisor"],
@@ -95,5 +95,5 @@ class WSEvent(BaseModel):
 # ─── Follow-up ───────────────────────────────────────────────────────────────
 
 class FollowUpRequest(BaseModel):
-    question: str = Field(..., min_length=5, max_length=1000)
+    question: str = Field(..., min_length=5, max_length=3000)
     meeting_id: str = Field(..., min_length=36, max_length=36)
