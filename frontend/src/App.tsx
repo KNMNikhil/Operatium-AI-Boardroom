@@ -259,14 +259,15 @@ function BoardroomHome() {
 
             {/* Center: Startup Name */}
             {meetingId && startupName && (
-              <div style={{ position: 'absolute', top: '10px', left: '50%', transform: 'translateX(-50%)', pointerEvents: 'auto', textAlign: 'center', background: 'rgba(255, 244, 233, 0.9)', padding: '8px 24px', borderRadius: 12, border: '2px solid #000', boxShadow: '4px 4px 0 rgba(0,0,0,1)', zIndex: 10000 }}>
-                <div style={{ fontSize: 24, fontWeight: 800, color: '#000', letterSpacing: '0.05em' }}>{startupName}</div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: 'rgba(0,0,0,0.5)', textTransform: 'uppercase' }}>Active Board Session</div>
+              <div style={{ position: 'absolute', top: '10px', left: '50%', transform: 'translateX(-50%)', pointerEvents: 'auto', display: 'flex', alignItems: 'center', gap: '16px', background: 'rgba(255, 244, 233, 0.9)', padding: '6px 20px', borderRadius: 12, border: '2px solid #000', boxShadow: '4px 4px 0 rgba(0,0,0,1)', zIndex: 10000 }}>
+                <div style={{ fontSize: 24, fontWeight: 800, color: '#000', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>{startupName}</div>
+                <div style={{ height: '20px', width: '2px', background: 'rgba(0,0,0,0.2)' }}></div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: 'rgba(0,0,0,0.5)', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Active Board Session</div>
                 {(isSharkTank || isInvestorLens || isRedTeam) && (
-                  <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '6px' }}>
-                    {isSharkTank && <span style={{ fontSize: '10px', background: '#ef4444', color: 'white', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>SHARK TANK</span>}
-                    {isInvestorLens && <span style={{ fontSize: '10px', background: '#eab308', color: 'black', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>INVESTOR LENS</span>}
-                    {isRedTeam && <span style={{ fontSize: '10px', background: '#7f1d1d', color: 'white', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>RED TEAM</span>}
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginLeft: '4px' }}>
+                    {isSharkTank && <span style={{ fontSize: '10px', background: '#ef4444', color: 'white', padding: '3px 8px', borderRadius: '4px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>SHARK TANK</span>}
+                    {isInvestorLens && <span style={{ fontSize: '10px', background: '#eab308', color: 'black', padding: '3px 8px', borderRadius: '4px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>INVESTOR LENS</span>}
+                    {isRedTeam && <span style={{ fontSize: '10px', background: '#7f1d1d', color: 'white', padding: '3px 8px', borderRadius: '4px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>RED TEAM</span>}
                   </div>
                 )}
               </div>

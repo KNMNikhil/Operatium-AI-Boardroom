@@ -645,6 +645,7 @@ Your executive team just provided these brief thoughts:
 {recent_discussion_text}
 
 Provide the final, highly structured, comprehensive, and innovative answer to the founder. 
+DO NOT summarize or repeat the discussion of the executives. The founder wants a direct, extremely clear ANSWER to their specific question based on the insights provided. Focus entirely on giving them the exact result, actionable advice, or explanation they asked for.
 If the founder asks for specific estimates (like timelines, team size, budget, or metrics), YOU MUST PROVIDE EXPLICIT LOGICAL ESTIMATES (e.g., "3-6 months", "2 engineers", "$50k-$100k") based on industry standards for {startup_name}. DO NOT give vague answers like "it depends" without providing a concrete baseline.
 If the founder specifies a currency (e.g., INR, USD, AUD), YOU MUST accurately calculate and format all financial estimates in that exact currency.
 Use Markdown formatting extensively (bolding, bullet points, numbered lists, tables, etc.) to make the answer visually appealing and easy to digest.

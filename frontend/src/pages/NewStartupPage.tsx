@@ -62,7 +62,7 @@ const TooltipIcon = ({ text }: { text: string }) => (
 
 export function NewStartupPage() {
   const navigate = useNavigate();
-  const { addStartup } = useStartupStore();
+  const { startups, addStartup } = useStartupStore();
   const { setIdea } = useMeetingStore();
 
   const [step, setStep] = useState<Step>(1);
@@ -131,6 +131,12 @@ export function NewStartupPage() {
   const handleLaunch = async () => {
     if (selectedExecs.length < 1) {
       setError('Select at least one executive.');
+      return;
+    }
+
+    const isDuplicate = startups.some(s => s.name.toLowerCase() === name.trim().toLowerCase() && s.description.toLowerCase().includes(description.trim().toLowerCase().substring(0, 20)));
+    if (isDuplicate) {
+      setError('You already have a startup with this exact idea! Go to your Dashboard to view it.');
       return;
     }
 
