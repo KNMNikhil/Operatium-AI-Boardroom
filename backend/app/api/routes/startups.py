@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException, Request
+from pydantic import BaseModel
 from app.db.models import StartupCreate, Startup
 from app.db.supabase_client import get_supabase
 from app.dependencies import limiter
