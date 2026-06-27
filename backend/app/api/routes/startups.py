@@ -45,6 +45,11 @@ Description: {payload.description}
 Provide the Primary Industry, Secondary Industry, and an optional Tertiary Industry from this exact list:
 SaaS, Marketplace, Consumer App, FinTech, HealthTech, EdTech, AI / ML, E-commerce, Social Network, Developer Tools, Climate Tech, Enterprise Software, Gaming, Media & Entertainment, BioTech, Hardware, Robotics, SpaceTech, Web3 / Crypto, Cybersecurity, Logistics, PropTech, Other.
 
+CRITICAL RULES:
+1. The Primary Industry MUST NOT be "Other". You must select the closest specific match.
+2. The Secondary Industry can be "Other" if no specific match applies.
+3. The Tertiary Industry is optional and can be left empty.
+
 Return your answer ONLY as a JSON object with keys "primary", "secondary", and "tertiary" (can be empty string if not applicable). Do not output any markdown formatting like ```json."""
         
         resp = await ceo.llm.ainvoke([HumanMessage(content=prompt)])
@@ -56,6 +61,11 @@ Return your answer ONLY as a JSON object with keys "primary", "secondary", and "
         
         import json
         data = json.loads(content)
+        
+        # Enforce rules programmatically if LLM fails
+        if data.get("primary") == "Other" or not data.get("primary"):
+            data["primary"] = "SaaS" # Safe generic fallback
+            
         return data
     except Exception as e:
         logger.error("industry_classification_failed", error=str(e))
