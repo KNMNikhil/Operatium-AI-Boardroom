@@ -14,10 +14,28 @@ async def create_startup(request: Request, payload: StartupCreate):
     supabase = get_supabase()
     logger.info("create_startup_attempt", name=payload.name)
     try:
+        from app.agents.executives.ceo import CEO
+        from langchain_core.messages import HumanMessage
+        
+        ceo = CEO()
+        prompt = f"""Analyze the following startup description and categorize its industry.
+Startup Name: {payload.name}
+Description: {payload.description}
+
+Provide the Primary Industry and Secondary Industry. The Tertiary Industry is optional.
+Return your answer ONLY as a raw comma-separated string, for example: "Fintech, AI, B2B" or "EdTech, SaaS". Do NOT output any other text or markdown formatting."""
+        
+        try:
+            resp = await ceo.llm.ainvoke([HumanMessage(content=prompt)])
+            generated_industry = resp.content.strip()
+        except Exception as e:
+            logger.error("industry_generation_failed", error=str(e))
+            generated_industry = "Technology"
+
         result = supabase.table("startups").insert({
             "name": payload.name,
             "description": payload.description,
-            "industry": payload.industry,
+            "industry": generated_industry,
             "executives": payload.executives,
         }).execute()
         await invalidate_cache("startups:page:*")
