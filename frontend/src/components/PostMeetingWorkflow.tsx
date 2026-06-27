@@ -128,13 +128,10 @@ ${Object.entries(analysis).map(([role, text]) => `### ${role}\n${stripMd(text as
     >
       <div id="report-content" className="max-w-6xl mx-auto space-y-12 pb-24 relative">
         <button 
-          onClick={() => {
-            resetMeeting();
-            navigate('/');
-          }}
+          onClick={onContinueDiscussion}
           className="absolute -top-4 left-0 px-4 py-2 bg-white border-2 border-black rounded-lg text-xl font-bold shadow-[3px_3px_0_rgba(0,0,0,1)] hover:translate-y-px hover:shadow-[1px_1px_0_rgba(0,0,0,1)] transition-all flex items-center gap-2"
         >
-          <span>←</span> Back to Dashboard
+          <span>←</span> Return to Room
         </button>
         
         {/* STEP 1: Meeting Completion */}
@@ -161,7 +158,7 @@ ${Object.entries(analysis).map(([role, text]) => `### ${role}\n${stripMd(text as
           {elevatorPitch && (
             <div className="mt-8 max-w-3xl mx-auto border-2 border-black bg-[#FFEBDB] p-6 rounded-xl shadow-[4px_4px_0_rgba(0,0,0,1)] transform rotate-[0.5deg]">
               <h3 className="text-2xl font-bold mb-2 uppercase tracking-widest text-black/70">Elevator Pitch</h3>
-              <p className="text-3xl font-bold leading-tight">{renderWithTooltips(elevatorPitch)}</p>
+              <p className="text-3xl font-bold leading-tight whitespace-pre-wrap">{renderWithTooltips(stripMd(elevatorPitch.replace(/[#*`~]/g, '')))}</p>
             </div>
           )}
         </div>
@@ -456,17 +453,6 @@ ${Object.entries(analysis).map(([role, text]) => `### ${role}\n${stripMd(text as
                 🔀 Pivot Idea Automatically
               </button>
             )}
-
-            {/* Placeholder Buttons for Future Features */}
-            <button className="p-6 border-2 border-black/30 rounded-lg bg-gray-100 text-black/50 text-xl font-bold border-dashed cursor-not-allowed">
-              ⚡ Create Version 2
-            </button>
-            <button className="p-6 border-2 border-black/30 rounded-lg bg-gray-100 text-black/50 text-xl font-bold border-dashed cursor-not-allowed">
-              🎯 Validate Another Assumption
-            </button>
-            <button className="p-6 border-2 border-black/30 rounded-lg bg-gray-100 text-black/50 text-xl font-bold border-dashed cursor-not-allowed">
-              🚀 Simulate Future
-            </button>
           </div>
         </div>
 

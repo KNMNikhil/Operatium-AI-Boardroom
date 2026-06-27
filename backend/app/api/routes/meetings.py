@@ -256,16 +256,15 @@ async def meeting_websocket(websocket: WebSocket, meeting_id: str):
             # Run the meeting synchronously on the async loop, feeding tokens to the socket
             await run_meeting(state, on_stream)
             
-            # Generate Report
-            await generate_dynamic_report(meeting_id)
+            # Generate Report in the background so we don't block the UI
+            asyncio.create_task(generate_dynamic_report(meeting_id))
 
-            # Send Completion Payload
+            # Send Completion Payload instantly
             try:
-                report = supabase.table("reports").select("*").eq("meeting_id", meeting_id).order("created_at", desc=True).limit(1).execute()
                 decisions = supabase.table("decisions").select("*").eq("meeting_id", meeting_id).execute()
                 await websocket.send_json({
                     "type": "meeting_complete",
-                    "report": report.data[0] if report.data else {},
+                    "report": {},
                     "decisions": decisions.data,
                 })
             except Exception:
