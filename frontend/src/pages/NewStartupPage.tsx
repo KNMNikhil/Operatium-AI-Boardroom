@@ -83,8 +83,29 @@ export function NewStartupPage() {
   const [industryManuallySet, setIndustryManuallySet] = useState(false);
 
   React.useEffect(() => {
-    if (industryManuallySet || !description.trim() || description.length < 10) return;
+    if (industryManuallySet || !description.trim() || description.length < 5) return;
 
+    // 1. Instant optimistic update using local keywords
+    const lowerDesc = description.toLowerCase();
+    const scores: { ind: string, score: number }[] = [];
+    for (const ind of INDUSTRIES) {
+      if (ind === 'Other') continue;
+      let score = 0;
+      const keywords = INDUSTRY_KEYWORDS[ind] || [];
+      for (const kw of keywords) {
+        const regex = new RegExp(`\\b${kw}\\b`, 'i');
+        if (regex.test(lowerDesc)) score += 1;
+      }
+      if (score > 0) scores.push({ ind, score });
+    }
+    scores.sort((a, b) => b.score - a.score);
+    
+    // Set optimistically only if we don't already have one
+    if (scores.length > 0 && !industryPrimary) setIndustryPrimary(scores[0].ind);
+    if (scores.length > 1 && !industrySecondary) setIndustrySecondary(scores[1].ind);
+    if (scores.length > 2 && !industryThird) setIndustryThird(scores[2].ind);
+
+    // 2. Slower, highly accurate AI call
     const timeoutId = setTimeout(async () => {
       setIsClassifying(true);
       try {
@@ -104,7 +125,7 @@ export function NewStartupPage() {
       } finally {
         setIsClassifying(false);
       }
-    }, 1500); // Debounce 1.5s
+    }, 400); // Debounce 400ms
 
     return () => clearTimeout(timeoutId);
   }, [description, industryManuallySet]);
