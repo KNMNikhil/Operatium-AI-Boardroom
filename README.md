@@ -228,6 +228,3 @@ Contributions, issue reports, and feature requests are welcome.
 3. Commit your Changes (git commit -m 'Implement Model Optimization')
 4. Push to the Branch (git push origin feature/Optimization)
 5. Open a Pull Request
-
-## License
-This project is open-sourced under the MIT License.
